@@ -34,6 +34,20 @@ export const getItems = (pokemonId) => async dispatch => {
   }
 }
 
+export const updateItem = (item) => async dispatch => {
+  const response = await fetch(`/api/items/${item.id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(item)
+  });
+
+  if (response.ok) {
+    const item = await response.json();
+    dispatch(update(item));
+    return item;
+  }
+}
+
 const initialState = {};
 
 const itemsReducer = (state = initialState, action) => {
